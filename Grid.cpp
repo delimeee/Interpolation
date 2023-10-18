@@ -35,5 +35,18 @@ class Grid {
             cout << this->values[i] << " ";
     }
 
+    int size(){
+        return this->arguments.size();
+    }
+
+    double getArgument(int i){
+        if(i >= 0 && i < this->arguments.size()) return this->arguments[i];
+        else throw "Out of bounds";
+    }
+
+    double getValue(int i){
+        if(i >= 0 && i < this->values.size()) return this->values[i];
+        else throw "Out of bounds";
+    }
 
 };
