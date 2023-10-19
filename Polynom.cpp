@@ -24,6 +24,12 @@ class Polynom {
         this->polynom = vector;
     }
 
+    Polynom(std::initializer_list<double> list){
+        for(auto& item : list) {
+            this->polynom.push_back(item);
+        }
+    }
+
     ~Polynom(){
         delete &(this->polynom);
         delete this;
@@ -44,18 +50,20 @@ class Polynom {
     void multiply(Polynom &polynom){
         int newDegree = this->getDegree() + polynom.getDegree();
         Polynom newPolynom = Polynom(newDegree);
-
         double resultCoefficient;
+        int thisSize = this->getDegree() + 1;
+        int otherSize = polynom.getDegree() + 1;
         for(size_t i = 0; i < newDegree + 1; ++i){
             resultCoefficient = 0.0;
             for(size_t j = 0; j <= i; ++j){
-                if(j < this->getDegree() + 1 && (i - j) < polynom.getDegree() + 1){
+                if(j < thisSize && (i - j) < otherSize){
                     resultCoefficient += this->polynom[j] * polynom.polynom[i - j];
                 }
             }
             newPolynom.polynom[i] = resultCoefficient;
         }
         *this = newPolynom;
+        this->print();
     }
 
     void multiply(double k){
@@ -76,6 +84,11 @@ class Polynom {
             for(size_t i = this->getDegree() + 1; i < other.getDegree() + 1; ++i)
             this->polynom.push_back(other.polynom[i]);
         }
+    }
+
+    void clear(){
+        for(size_t i = 0; i < this->getDegree() + 1; ++i)
+        this->polynom[i] = 0;
     }
 
     void print(){
